@@ -1,9 +1,12 @@
+ARG GBVERSION=v3/v3.1.3
+ARG GBAVERSION=@v1.0.1
+
 FROM golang:1.15-alpine
 
 WORKDIR /go/dummy
 RUN go mod init dummy
-RUN go get github.com/go-bindata/go-bindata/v3@v3.1.3
-RUN go get github.com/elazarl/go-bindata-assetfs/go-bindata-assetfs@v1.0.1
+RUN go get github.com/go-bindata/go-bindata/${GBVERSION}
+RUN go get github.com/elazarl/go-bindata-assetfs/go-bindata-assetfs${GBAVERSION}
 RUN GOMODULE111=on CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build github.com/elazarl/go-bindata-assetfs/go-bindata-assetfs
 RUN GOMODULE111=on CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build github.com/go-bindata/go-bindata/go-bindata
 
